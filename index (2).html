@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>給自己一個照顧的方向｜創傷照管探索</title>
+<style>
+:root{--bg:#f5f2eb;--paper:#fffdf8;--ink:#35433e;--muted:#77817a;--sage:#78978a;--dark:#496d60;--line:#e5e1d8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.75}
+main{width:min(900px,calc(100% - 32px));margin:28px auto 55px}header{text-align:center;padding:20px 12px 28px}.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--dark);font-weight:bold}h1{font-size:clamp(28px,5vw,42px);margin:10px 0;color:#3f5e53}.lead{max-width:650px;margin:auto;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,34px);margin:18px 0;box-shadow:0 12px 35px #36443c14}.notice,.result-copy{background:#edf2ed;border-radius:14px;padding:14px 16px;color:#526b60}.progress-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:22px 0 9px}.progress{height:7px;background:#e9e8df;border-radius:9px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--sage)}
+.question{padding:23px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}.q-title{font-weight:bold;font-size:18px;margin:0 0 7px}.q-stem{margin:0 0 14px}.options{display:grid;gap:9px}.option{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:13px;cursor:pointer;background:#fffefa}.option:has(input:checked){border-color:var(--sage);background:#edf3ee}.option input{margin-top:7px;accent-color:var(--dark)}.letter{font-weight:bold;color:var(--dark)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}button{border:0;border-radius:999px;padding:12px 22px;font:inherit;font-weight:bold;cursor:pointer}.primary{background:var(--dark);color:white}.secondary{background:#ecebe4;color:#56645d}button:disabled{opacity:.45;cursor:not-allowed}.hidden{display:none!important}
+.result-head{text-align:center}.pill{display:inline-block;border-radius:99px;background:#edf2ed;color:var(--dark);padding:5px 12px;font-size:12px}.result-head h2{color:var(--dark);font-size:28px;margin:12px 0 4px}.result-head p{color:var(--muted);margin:0}.result-copy{margin:16px 0;background:#f6f5ef;color:var(--ink)}.result-copy h3{font-size:15px;color:var(--dark);margin:0 0 8px}.result-copy p{margin:0}.result-copy ul{margin:8px 0 0;padding-left:22px}
+label.field{display:block;font-weight:bold;font-size:14px;margin:18px 0 7px}textarea{width:100%;min-height:76px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;resize:vertical}
+.card{width:min(100%,540px);margin:24px auto 16px;padding:28px 26px;border-radius:22px;color:#3d5148;background:linear-gradient(145deg,#f7f3e9,#e6eee6);box-shadow:0 14px 35px #38493e24;border:1px solid white;position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:190px;height:190px;right:-65px;top:-75px;border-radius:50%;background:#d9a9782e}.cardin{position:relative}.kicker{text-align:center;font-size:10px;letter-spacing:.2em;color:#70877b;font-weight:bold}.card h2{text-align:center;font-size:27px;color:var(--dark);margin:10px 0 4px}.direction{text-align:center;font-weight:bold;margin-bottom:18px}.rule{height:1px;background:#496d6038;margin:16px 0}.clabel{font-size:11px;color:#71877b;font-weight:bold}.need{font-size:15px;font-weight:bold}.card ol{font-size:13px;line-height:1.8;padding-left:20px}.quote{text-align:center;font-size:18px;font-weight:bold;color:var(--dark);margin:14px 0;overflow-wrap:anywhere}.sign{text-align:center;font-size:10px;color:#7d8a81}.small{font-size:12px;color:var(--muted);text-align:center}footer{text-align:center;color:#929990;font-size:12px;margin-top:25px}
+@media(max-width:600px){main{margin-top:12px}.panel{border-radius:17px}.question{padding:18px 0}.option{padding:10px}}
+@media print{body{background:white}main{width:100%;margin:0}header,#quizPanel,footer,#controls,.result-copy,.field,#selfWords{display:none!important}#resultPanel{display:block!important;border:0;box-shadow:none;margin:0}.result-head{display:none}.card{box-shadow:none;margin:0 auto;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">TRAUMA STEWARDSHIP · SELF-REFLECTION</div><h1>給自己一個照顧的方向</h1><p class="lead">五道探索題，陪你整理此刻的需要。照顧別人的同時，也別忘了把自己放進照顧的範圍裡。</p></header>
+<section class="panel" id="quizPanel">
+<div class="notice">這不是心理測驗，也沒有標準答案。請依照最近的自己，選擇最貼近的選項。回答只用來產生這次的個人化提醒，不會上傳或儲存。</div>
+<div class="progress-top"><span>探索進度</span><span id="progressText">已完成 0 / 5 題</span></div><div class="progress"><span id="progressBar"></span></div>
+<form id="quizForm"><div id="questions"></div><div class="actions"><button class="primary" id="submitBtn" disabled>看看我的照管方向</button><button class="secondary" type="button" id="resetBtn">重新作答</button></div></form>
+</section>
+<section class="panel hidden" id="resultPanel">
+<div class="result-head"><span class="pill">你的探索回饋</span><h2 id="resultTitle"></h2><p id="resultSubtitle"></p></div>
+<div class="result-copy"><h3>我看見的你</h3><p id="insight"></p></div><div class="result-copy"><h3>現在可以練習</h3><ul id="actionsList"></ul></div>
+<div class="result-copy hidden" id="secondaryBox"><h3>也可以留意的方向</h3><p id="secondaryText"></p></div>
+<label class="field" for="selfWords">如果現在的你，可以對自己說一句話，你最想說什麼？</label><textarea id="selfWords" maxlength="100" placeholder="寫下一句想送給自己的話……"></textarea>
+<div class="card" id="card"><div class="cardin"><div class="kicker">MY TRAUMA STEWARDSHIP CARD</div><h2>我的照管提醒卡</h2><div class="direction" id="cardDirection"></div><div class="rule"></div><div class="clabel">我目前最需要的</div><div class="need" id="cardNeed"></div><div class="rule"></div><div class="clabel">這週，我可以練習</div><ol id="cardActions"></ol><div class="rule"></div><div class="quote" id="cardQuote"></div><div class="sign">給正在付出的自己</div></div></div>
+<div class="small">這張卡不是要求自己做得更多，而是提醒自己也值得被照顧。</div>
+<div class="actions" id="controls"><button class="primary" type="button" id="downloadBtn">下載我的圖卡 PNG</button><button class="secondary" type="button" id="printBtn">列印／另存 PDF</button><button class="secondary" type="button" id="againBtn">重新探索</button></div>
+</section><footer>給正在付出的自己 · 一份日常的創傷照管練習</footer>
+</main>
+<script>
+"use strict";
+const D={
+A:{name:"北方",title:"創造探索的空間",sub:"重新理解自己為什麼投入這份工作",insight:"你可能已經投入這份工作很長一段時間，有時候忙著回應別人的需求，反而忘了停下來問問自己：我為什麼而努力？這份工作對我來說，還有什麼意義？",need:"我需要留一點空間，重新理解自己的初衷、價值與方向。",acts:["找時間重新整理自己投入這份工作的初衷。","問問自己：除了完成工作，我還希望在這份工作中獲得什麼？","允許自己對未來有新的想像，不必永遠維持原來的樣子。"],quote:"偶爾停下來，不是迷失方向，而是重新確認方向。"},
+B:{name:"東方",title:"選擇自己的焦點",sub:"把有限的心力留給真正重要的事",insight:"你可能習慣把注意力放在尚未完成的事情、學生的困難，或自己還能做得更好的地方。久而久之，容易忘記自己已經完成了多少，也忘了有些事情並不完全由自己掌控。",need:"我需要重新選擇注意力的方向，分辨哪些是我能影響的事。",acts:["區分自己能控制、能影響，以及無法控制的事情。","每天看見一件自己已經做到的事情。","把有限的心力留給真正重要、也真正能產生影響的事情。"],quote:"不是每件事情都需要由我承擔，也不是每個結果都由我決定。"},
+C:{name:"南方",title:"建立慈悲與連結",sub:"練習讓自己也成為被支持的人",insight:"你可能很習慣成為支持別人的那個人，當學生需要你、同事需要你時，你總是努力接住。但你也需要有人理解你、支持你，讓你知道自己並不是孤單一個人。",need:"我需要支持與連結，不必獨自承擔所有事情。",acts:["找一位信任的人，說說最近真正的感受。","練習提出需求，而不是等到撐不住才求助。","接受別人的幫忙，不必覺得所有事情都要自己完成。"],quote:"我可以照顧別人，也可以允許自己被照顧。"},
+D:{name:"西方",title:"尋找生活的平衡",sub:"重新找回工作以外的自己",insight:"你可能已經讓工作佔據生活中很大的位置，即使離開學校，腦袋仍然持續運轉。你需要的也許不是再多一點努力，而是重新找回工作以外的自己。",need:"我需要為工作與生活建立界線，保留自己的時間與空間。",acts:["為自己設定一個下班後不再處理工作的時間。","安排一件與工作無關、單純讓自己開心的事情。","檢視目前的工作量，練習拒絕不合理的額外負擔，必要時尋求組織支持。"],quote:"我的人生不只有工作，我也值得擁有自己的生活。"},
+E:{name:"第五方向",title:"每天回到自己",sub:"透過日常的小練習重新安定身心",insight:"你可能長時間處在回應、處理、判斷與付出的狀態，很少真正停下來感受自己。現在，你需要的或許不是一個很大的改變，而是每天都有一小段時間，重新回到自己身上。",need:"我需要每天留一點時間，重新安頓自己、回到當下。",acts:["每天花五分鐘，讓自己安靜下來。","在進入工作或離開學校前，留一個轉換心情的小儀式。","透過呼吸、散步、音樂或其他喜歡的方式，練習活在當下。"],quote:"在照顧世界之前，先回到自己的身邊。"}
+};
+const Q=[
+["當我感到疲憊時","最近的工作讓你感到有些疲憊，如果現在能為自己做一件事，你最希望是什麼？",[
+["A","暫停一下，重新想想：我為什麼選擇這份工作？我希望自己成為什麼樣的助人者？"],["B","把注意力從眼前的困難移開，重新看見工作中仍然值得期待的事情。"],["C","找一個能理解自己的人聊聊，不再什麼事情都自己消化。"],["D","重新安排工作與生活，讓自己有時間做工作以外喜歡的事情。"],["E","讓自己安靜下來，透過休息、呼吸或散步，重新找回平靜。"]]],
+["當事情不如預期時","當你已經很努力處理一件學生或工作上的事情，結果卻一直沒有改善，你最希望自己能夠怎麼做？",[
+["A","重新思考這件事對我的意義，提醒自己當初為什麼願意投入。"],["B","區分哪些事情是我能改變的，哪些不是，將心力放回自己能做的部分。"],["C","找同事或夥伴一起討論，讓自己不必獨自承擔。"],["D","接受有些事情需要時間，暫時放下工作，不讓它佔據我的全部生活。"],["E","先照顧自己的情緒，不急著解決問題，讓自己回到穩定的狀態。"]]],
+["如果能為自己爭取一件事","假設學校願意聽見你的需求，你最希望獲得哪一種支持？",[
+["A","有機會重新討論工作的價值、目標與初衷，知道自己為什麼而努力。"],["B","更清楚的工作分工與優先順序，讓我知道哪些事情值得投入心力。"],["C","更多合作與支持，遇到困難時有人願意理解、分擔與協助。"],["D","合理的工作量與休息空間，讓工作不再持續侵蝕私人生活。"],["E","一段不被打擾的時間與空間，讓我可以整理自己、恢復能量。"]]],
+["當我發現自己快要耗盡時","當你察覺自己已經沒有太多力氣面對學生、同事或工作，你最需要的是什麼？",[
+["A","重新找回工作的意義，確認自己仍然願意為什麼而努力。"],["B","暫時放下不必要的事情，重新決定目前最重要的目標。"],["C","允許自己求助，讓信任的人陪伴自己度過這段時間。"],["D","暫停過度付出，為工作與生活重新建立界線。"],["E","給自己一段喘息的時間，透過日常的小儀式重新安定身心。"]]],
+["接下來，我想送給自己什麼？","如果接下來一週，你願意為自己做一個小小的改變，你最想從哪件事情開始？",[
+["A","寫下一段話，提醒自己當初為什麼選擇這份工作。"],["B","每天只抓住一件真正重要的事情，不再要求自己什麼都做到最好。"],["C","主動向一個信任的人表達需求，練習接受別人的支持。"],["D","為自己保留一段時間，不處理工作、不回覆工作訊息。"],["E","每天安排五分鐘，透過呼吸、靜心或散步，好好陪伴自己。"]]]
+];
+const $=id=>document.getElementById(id);let current=null;
+Q.forEach((q,i)=>{const s=document.createElement("section");s.className="question";const h=document.createElement("p");h.className="q-title";h.textContent=(i+1)+". "+q[0];const p=document.createElement("p");p.className="q-stem";p.textContent=q[1];const opts=document.createElement("div");opts.className="options";q[2].forEach(([v,t])=>{const l=document.createElement("label");l.className="option";const r=document.createElement("input");r.type="radio";r.name="q"+i;r.value=v;r.addEventListener("change",progress);const b=document.createElement("span");b.className="letter";b.textContent=v+".";const span=document.createElement("span");span.textContent=t;l.append(r,b,span);opts.append(l);});s.append(h,p,opts);$("questions").append(s);});
+function answers(){return Q.map((_,i)=>document.querySelector('input[name="q'+i+'"]:checked')?.value||null);}
+function progress(){const n=answers().filter(Boolean).length;$("progressText").textContent=`已完成 ${n} / 5 題`;$("progressBar").style.width=(n*20)+"%";$("submitBtn").disabled=n!==5;}
+function renderResult(a){
+ const counts={A:0,B:0,C:0,D:0,E:0};a.forEach(x=>counts[x]++);const max=Math.max(...Object.values(counts));const tied=Object.keys(counts).filter(k=>counts[k]===max);const main=tied.includes(a[4])?a[4]:tied[0];const secondary=Object.keys(counts).filter(k=>k!==main&&counts[k]>0).sort((x,y)=>counts[y]-counts[x]);const d=D[main];current=d;
+ $("resultTitle").textContent=d.name+"｜"+d.title;$("resultSubtitle").textContent=d.sub;$("insight").textContent=d.insight;
+ const ul=$("actionsList");ul.replaceChildren();d.acts.forEach(t=>{const li=document.createElement("li");li.textContent=t;ul.append(li);});
+ if(secondary.length){$("secondaryBox").classList.remove("hidden");$("secondaryText").textContent=secondary.slice(0,2).map(k=>D[k].name+"："+D[k].title).join("；")+"。這些也是你可以依照實際需要，彈性運用的照管方向。";}else{$("secondaryBox").classList.add("hidden");}
+ $("cardDirection").textContent=d.name+"｜"+d.title;$("cardNeed").textContent=d.need;const ol=$("cardActions");ol.replaceChildren();d.acts.forEach(t=>{const li=document.createElement("li");li.textContent=t;ol.append(li);});$("cardQuote").textContent="「"+d.quote+"」";$("selfWords").value="";
+ $("quizPanel").classList.add("hidden");$("resultPanel").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});
+}
+$("quizForm").addEventListener("submit",e=>{e.preventDefault();const a=answers();if(a.some(x=>!x))return;renderResult(a);});
+$("selfWords").addEventListener("input",()=>{if(current)$("cardQuote").textContent="「"+($("selfWords").value.trim()||current.quote)+"」";});
+function reset(){ $("quizForm").reset();$("resultPanel").classList.add("hidden");$("quizPanel").classList.remove("hidden");current=null;progress();window.scrollTo({top:0,behavior:"smooth"});}
+$("resetBtn").addEventListener("click",reset);$("againBtn").addEventListener("click",reset);$("printBtn").addEventListener("click",()=>window.print());
+function wrap(ctx,text,x,y,max,lineHeight){let line="";for(const ch of Array.from(text)){const test=line+ch;if(ctx.measureText(test).width>max&&line){ctx.fillText(line,x,y);line=ch;y+=lineHeight;}else line=test;}if(line){ctx.fillText(line,x,y);y+=lineHeight;}return y;}
+$("downloadBtn").addEventListener("click",()=>{
+ if(!current)return;const c=document.createElement("canvas");c.width=1080;c.height=1350;const x=c.getContext("2d"),g=x.createLinearGradient(0,0,1080,1350);g.addColorStop(0,"#f7f3e9");g.addColorStop(1,"#e4eee6");x.fillStyle=g;x.fillRect(0,0,1080,1350);
+ x.fillStyle="rgba(217,169,120,.2)";x.beginPath();x.arc(1000,80,250,0,Math.PI*2);x.fill();x.textAlign="center";x.fillStyle="#71877b";x.font="bold 25px sans-serif";x.fillText("MY TRAUMA STEWARDSHIP CARD",540,125);
+ x.fillStyle="#496d60";x.font="bold 64px sans-serif";x.fillText("我的照管提醒卡",540,210);x.font="bold 39px sans-serif";x.fillText(current.name+"｜"+current.title,540,272);
+ const m=105;let y=340;x.strokeStyle="#496d6044";x.beginPath();x.moveTo(m,y);x.lineTo(975,y);x.stroke();y+=55;x.textAlign="left";x.fillStyle="#71877b";x.font="bold 27px sans-serif";x.fillText("我目前最需要的",m,y);y+=52;x.fillStyle="#3d5148";x.font="32px sans-serif";y=wrap(x,current.need,m,y,870,48)+35;
+ x.fillStyle="#71877b";x.font="bold 27px sans-serif";x.fillText("這週，我可以練習",m,y);y+=50;x.fillStyle="#3d5148";x.font="27px sans-serif";current.acts.forEach((t,i)=>{y=wrap(x,(i+1)+". "+t,m,y,870,43)+18;});
+ y+=10;x.strokeStyle="#496d6044";x.beginPath();x.moveTo(m,y);x.lineTo(975,y);x.stroke();y+=65;x.textAlign="center";x.fillStyle="#496d60";x.font="bold 34px sans-serif";const quote="「"+($("selfWords").value.trim()||current.quote)+"」";wrap(x,quote,150,y,780,52);x.fillStyle="#7d8a81";x.font="22px sans-serif";x.fillText("給正在付出的自己",540,1280);
+ const a=document.createElement("a");a.download="我的創傷照管提醒卡.png";a.href=c.toDataURL("image/png");a.click();
+});
+progress();
+</script></body></html>
